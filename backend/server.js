@@ -4,6 +4,7 @@ import express from "express";
 
 import DatabaseConnection from "./config/db.js";
 import routeNotFound from "./middlewares/routeNotFound.js";
+import authRoutes from "./routes/auth.route.js";
 
 const app = express();
 
@@ -15,6 +16,8 @@ db.connect();
 // middlewares
 app.use(express.json());
 
+// @/api/users
+app.use("/api/users", authRoutes);
 
 // not found routes
 app.use(routeNotFound)
