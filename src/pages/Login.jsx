@@ -7,12 +7,13 @@ import Button from "../components/Button";
 const Login = () => {
   return (
     <>
-        <div className="">
+        <div className="grid grid-cols-5 gap-4">
+          <div className="lg:col-span-2 col-span-full py-24 pl-32">
             <div className="flex mb-10">
                 <h1 className="text-lg font-medium mr-4">Nouveau ? </h1>
                 <Link to={"/signup"}><h1 className="text-lg font-medium text-lightBlue hover:underline">S'inscrire</h1></Link>
             </div>
-            <GoogleBtn  />
+            <GoogleBtn text={"Se connecter avec Google"}  />
             <div className="mt-8 flex flex-row ">
                 <div class="border-t-2 border-gray-500 w-2/12 min-w-32 mr-7"></div>
                 <div className="text-gray-500 relative bottom-4 mr-7 text-base font-medium">Ou</div>
@@ -22,7 +23,11 @@ const Login = () => {
               <InputField placeholderText={"Adresse email"} />
               <InputField placeholderText={"Mot de passe"} />
               <Button text={"Login"} />
+              <a href="#" className="hover:underline">Mot de passe oublié ?</a>
             </div>
+          </div>
+          <div className="bg-lightBlue w-full lg:col-span-3 h-dvh">
+          </div>
         </div>
     </>
   )
