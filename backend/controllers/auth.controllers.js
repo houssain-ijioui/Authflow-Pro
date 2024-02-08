@@ -1,5 +1,12 @@
+import { config } from "dotenv";
+config();
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+
+const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
+
 
 const signup = async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
@@ -24,7 +31,45 @@ const signup = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).send({
-            message: "Oops somehing wet wrong"
+            message: "Oops somehing went wrong"
+        })
+    }
+}
+
+
+
+const login = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({ email: email })
+
+        if (!user) {
+            return res.status(400).send({
+                message: "Email Not Found!"
+            })
+        }
+
+        const comparePassword = await bcrypt.compare(password, user.password)
+
+        if (!comparePassword) {
+            return res.status(401).send({
+                message: "Incorrect Password"
+            })
+        }
+
+        console.log(ACCESS_TOKEN_SECRET);
+
+        const token = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET);
+        res.cookie("accessToken", token, { maxAge: 1000 * 60 * 10, httpOnly: true });
+        
+        console.log(req);
+        res.status(200).send({
+            message: "Logged In",
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            message: "Oops somehing went wrong"
         })
     }
 }
@@ -32,5 +77,6 @@ const signup = async (req, res) => {
 
 
 export default {
-    signup
+    signup,
+    login
 }

@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 config();
 import express from "express";
+import cookieParser from "cookie-parser";
 
 import DatabaseConnection from "./config/db.js";
 import routeNotFound from "./middlewares/routeNotFound.js";
@@ -15,6 +16,7 @@ db.connect();
 
 // middlewares
 app.use(express.json());
+app.use(cookieParser());
 
 // @/api/users
 app.use("/api/users", authRoutes);
