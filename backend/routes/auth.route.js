@@ -6,6 +6,7 @@ import validateUserLoginInput from "../middlewares/validateUserLogin.js";
 import checkDuplicatedCredentials from "../middlewares/checkDuplicatedCredenials.js";
 import userIsAlreadyLoggedIn from "../middlewares/userIsAlreadyLoggedIn.js";
 import userIsAlreadyLoggedOut from "../middlewares/userIsAlreadyLoggedOut.js";
+import verifyToken from "../middlewares/verifyToken.js";
 
 
 // POST create user  @/api/users/signup
@@ -15,8 +16,8 @@ router.post('/signup', validateUserCreationInput, checkDuplicatedCredentials, au
 router.post('/login', userIsAlreadyLoggedIn, validateUserLoginInput, authControllers.login);
 
 // POST user login @/api/users/login
-router.get('/', authControllers.getUsers);
-
+router.get('/', verifyToken, authControllers.getUsers);
+ 
 // GET user logout @/api/users/login
 router.get('/logout', userIsAlreadyLoggedOut, authControllers.logout);
 
