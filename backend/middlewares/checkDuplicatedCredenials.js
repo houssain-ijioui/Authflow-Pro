@@ -6,7 +6,7 @@ const checkDuplicatedCredentials = async (req, res, next) => {
     try {
         const { email } = req.body;
 
-        const checkEmail = await User.find({ email });
+        const checkEmail = await User.findOne({ email: email });
 
         if (checkEmail) {
             return res.status(400).send({
