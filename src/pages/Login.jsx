@@ -2,9 +2,26 @@ import { Link } from "react-router-dom";
 import GoogleBtn from "../components/GoogleBtn";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../Store/userSlice";
 
 
 const Login = () => {
+
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassword ] = useState("");
+
+
+  const dispatch = useDispatch();
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    let userCredentials = {
+      email, password
+    }
+    dispatch(loginUser(userCredentials));
+  }
+
   return (
     <>
         <div className="grid grid-cols-5 gap-4">
@@ -15,14 +32,14 @@ const Login = () => {
             </div>
             <GoogleBtn text={"Se connecter avec Google"}  />
             <div className="mt-8 flex flex-row ">
-                <div class="border-t-2 border-gray-500 w-2/12 min-w-32 mr-7"></div>
+                <div className="border-t-2 border-gray-500 w-2/12 min-w-32 mr-7"></div>
                 <div className="text-gray-500 relative bottom-4 mr-7 text-base font-medium">Ou</div>
-                <div class="border-t-2 border-gray-500 w-2/12 min-w-32"></div>
+                <div className="border-t-2 border-gray-500 w-2/12 min-w-32"></div>
             </div>
             <div className="flex flex-col">
-              <InputField placeholderText={"Adresse email"} />
-              <InputField placeholderText={"Mot de passe"} />
-              <Button text={"Login"} />
+              <InputField value={email} setValue={setEmail} placeholderText={"Adresse email"} />
+              <InputField value={password} setValue={setPassword} placeholderText={"Mot de passe"} />
+              <Button handleLoginClick={handleLoginClick} text={"Login"} />
               <a href="#" className="hover:underline">Mot de passe oublié ?</a>
             </div>
           </div>
