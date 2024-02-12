@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Role from "../models/role.model.js";
 
+
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,

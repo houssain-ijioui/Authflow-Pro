@@ -38,10 +38,12 @@ const signup = async (req, res) => {
 
 
 
+
 const login = async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({ email: email }).populate('role');
+
 
         if (!user) {
             return res.status(400).send({
