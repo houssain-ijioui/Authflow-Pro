@@ -4,23 +4,20 @@ import InputField from "../components/InputField";
 import Button from "../components/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../Store/userSlice";
-
+import { login } from "../state/auth/authSlice";
 
 const Login = () => {
 
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
 
-
   const dispatch = useDispatch();
-  const handleLoginClick = (e) => {
-    e.preventDefault();
-    let userCredentials = {
-      email, password
-    }
-    dispatch(loginUser(userCredentials));
+
+
+  const handleLoggin = () => {
+    dispatch(login({email, password}));
   }
+
 
   return (
     <>
@@ -39,7 +36,7 @@ const Login = () => {
             <div className="flex flex-col">
               <InputField value={email} setValue={setEmail} placeholderText={"Adresse email"} />
               <InputField value={password} setValue={setPassword} placeholderText={"Mot de passe"} />
-              <Button handleLoginClick={handleLoginClick} text={"Login"} />
+              <Button onClick={handleLoggin} text={"Login"} />
               <a href="#" className="hover:underline">Mot de passe oublié ?</a>
             </div>
           </div>
