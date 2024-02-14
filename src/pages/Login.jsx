@@ -3,7 +3,7 @@ import GoogleBtn from "../components/GoogleBtn";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../state/auth/authSlice";
 
 const Login = () => {

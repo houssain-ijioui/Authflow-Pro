@@ -17,6 +17,7 @@ const authSlice = createSlice({
             console.log("Pending");
         }).addCase(login.fulfilled, (state) => {
             state.isLogged = true
+            console.log("Success");
         }).addCase(login.rejected, () => {
             console.log("Login Rejected");
         })
